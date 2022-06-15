@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  h1 #{title}: #{team.name}
+  p= team.brief_description
+
+  p Do you really want to delete this role?
+  if player_list.length
+
+    p #[strong Delete the following players before attempting to delete this role.]
+
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4 Players
+
+      dl
+      each player in player_list
+        dt
+          a(href=player.url) #{player.nickname}
+          p #{player.full_name}
+  else 
+    form(method='POST' action='')
+        div.form-group
+        input#teamid.form-control(type='hidden',name='teamid', required='true', value=team._id )
+        button.btn.btn-primary(type='submit') Delete

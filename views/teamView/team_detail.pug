@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  h1 Name: #{team.name} (#{team.acronym_name})
+
+  p #[strong Ranking hltv: ] #{team.ranking_hltv}
+  p #[strong Date of creation: ] #{team.year_created_formatted}
+  p #[strong Brief description: ] #{team.brief_description}
+
+  ul
+      h3 Players
+      each player in player_list
+        li
+          a(href=player.url) #{player.nickname}
+          |  (role: #{player.role.name})
+
+      else
+        li There are no player.
+
+  hr
+  p
+    a(href=team.url+'/delete') Delete team
+  p
+    a(href=team.url+'/update') Update team

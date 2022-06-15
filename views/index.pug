@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1= title
+  
+  ul
+    h2 Players
+    each player in player_list
+      li
+        a(href=player.url) #{player.nickname}
+        |  (#{player.team.name}, 
+        |  #{player.role.name})
+
+    else
+      li There are no player.
+  
+  ul
+    h2 Teams
+    each team in team_list
+      li
+        a(href=team.url) #{team.name}
+
+    else
+      li There are no team.
+      
+  ul
+    h2 Roles
+    each role in role_list
+      li
+        a(href=role.url) #{role.name}
+
+    else
+      li There are no role.
+

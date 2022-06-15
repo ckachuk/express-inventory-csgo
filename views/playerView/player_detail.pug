@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1 Name: #{player.nickname} (#{player.full_name})
+
+  p #[strong Team: ]
+    a(href=player.team.url) #{player.team.name}
+  p #[strong Role: ]
+    a(href=player.role.url) #{player.role.name}
+  p #[strong Date of birth: ] #{player.date_of_birth_formatted}
+
+
+  hr
+  p
+    a(href=player.url+'/delete') Delete Book
+  p
+    a(href=player.url+'/update') Update Book
