@@ -2,8 +2,10 @@ var Player = require('../models/player');
 var Role = require('../models/role');
 var Team = require('../models/team');
 const { body,validationResult } = require('express-validator');
-
+var fs = require('fs')
 var async = require('async');
+
+
 
 exports.index = function(req, res, next){
     async.parallel({
@@ -75,6 +77,9 @@ exports.player_create_post = [
     body('role', 'Role must not be empty.').trim().isLength({ min: 1 }).escape(),
     (req, res, next)=>{
         var errors = validationResult(req)
+        
+        const receivedPath = req.file.path;
+        const cleanedPath = receivedPath.slice(6);
 
         var player = new Player({
             full_name: req.body.full_name,
@@ -83,7 +88,8 @@ exports.player_create_post = [
             role: req.body.role,
             nationality: req.body.nationality,
             date_of_birth: req.body.date_of_birth,
-            rating_hltv: req.body.rating_hltv
+            rating_hltv: req.body.rating_hltv,
+            image_player: cleanedPath
         })
         
         if(!errors.isEmpty()){
@@ -158,6 +164,9 @@ exports.player_update_post = [
     (req, res, next)=>{
         var errors = validationResult(req)
 
+        const receivedPath = req.file.path;
+        const cleanedPath = receivedPath.slice(6);
+
         var player = new Player({
             full_name: req.body.full_name,
             nickname: req.body.nickname,
@@ -166,6 +175,7 @@ exports.player_update_post = [
             nationality: req.body.nationality,
             date_of_birth: req.body.date_of_birth,
             rating_hltv: req.body.rating_hltv,
+            image_player: cleanedPath,
             _id: req.params.id
         })
         
@@ -186,6 +196,20 @@ exports.player_update_post = [
             return;
         }
         else{
+
+            Player.findById(req.params.id, function(err, player_image){
+                if(err){return next(err)}
+                if(undefined!= player_image.image_player){
+                    path = './public/'+ player_image.image_player
+                    fs.unlink(path, (err) => {
+                        if (err) {
+                            console.error(err)
+                        }            
+                        //file removed
+                    })
+                } 
+            })
+
             Player.findByIdAndUpdate(req.params.id, player, {} ,function(err, theplayer){
                 if(err){ return next (err);}
                 res.redirect(theplayer.url)

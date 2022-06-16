@@ -9,7 +9,8 @@ var PlayerShema = new Schema({
     rating_hltv: {type: Number},
     nationality: {type: String, required:true, maxlength: 100},
     role: {type: Schema.Types.ObjectId, ref:'Role', required:true},
-    team: {type: Schema.Types.ObjectId, ref:'Team', required:true}
+    team: {type: Schema.Types.ObjectId, ref:'Team', required:true},
+    image_player: {type:String}
 })
 
 

@@ -8,7 +8,8 @@ var TeamSchema = new Schema({
     acronym_name: {type:String, maxlength:6},
     brief_description: {type:String, maxlength: 300},
     year_created: {type:Date},
-    ranking_hltv: {type: Number}
+    ranking_hltv: {type: Number},
+    logo_team: {type: String}
 })
 
 

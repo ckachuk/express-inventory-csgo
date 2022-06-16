@@ -3,7 +3,7 @@ extends ../layout
 block content
   h1 #{title}
 
-  form(method='POST' action='')
+  form(method='POST' action='' enctype="multipart/form-data")
     div.form-group
       label(for='name') Team name:
       input#name.form-control(type='text', placeholder='Name of the team' name='name' value=(undefined===team ? '' : team.name))
@@ -19,6 +19,9 @@ block content
     div.form-group
       label(for='brief_description') Description:
       textarea#brief_description.form-control( placeholder='brief description' name='brief_description') #{undefined===team ? '' : team.brief_description}
+    div.form-group
+      label(for='logo_team') Logo team:
+      input#logo_team.form-control( type="file" name='logo_team') 
     button.btn.btn-primary(type='submit') Submit
 
   if errors
