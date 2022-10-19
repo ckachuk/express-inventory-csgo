@@ -9,8 +9,7 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-var dev_db_url  = 'mongodb+srv://carlk:S6oHRBCXs8mFPEg2@cluster0.bx9pzgh.mongodb.net/inventory_csgo?retryWrites=true&w=majority';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
+var mongoDB = process.env.MONGODB_URI;
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
